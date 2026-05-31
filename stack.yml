@@ -1,0 +1,29 @@
+version: "3.8"
+
+service:
+  appdp:
+    image: ghcr.io/dustin129812/holaflask:1.0.0
+    ports:
+      - target: 5000
+        published: 7001
+        protocol: tcp
+        mode: host
+    networks:
+      - traefic-public
+    deploy:
+      lables:
+        - "traefik.enable=true"
+        - "traefik.http.routers.appbm.entrypoints=http"
+        - "traefik.http.routers.appbm.rule=Host(`appbm.byronrm.com`)"
+        - "traefik.http.middlewares.appbm-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.appbm.middlewares=portainer-https-redirect"
+        - "traefik.http.routers.appbm-secure.entrypoints=https"
+        - "traefik.http.routers.appbm-secure.rule=Host(`appbm.byronrm.com`)"
+        - "traefik.http.routers.appbm-secure.tls=true"
+        - "traefik.http.routers.appbm-secure.tls.certresolver=http"
+        - "traefik.http.routers.appbm-secure.service=appbm"
+        - "traefik.http.services.appbm.loadbalancer.server.port=7001"
+        - "traefik.docker.network=traefik-public"
+networks:
+  traefic-public:
+    external: true
