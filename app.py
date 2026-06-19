@@ -69,7 +69,7 @@ HTML = """
 <body>
 
     <div class="card">
-        <h1>Hola byron ponle 10/h1>
+        <h1>Primer cambio de titulo: Dustin Paredes /h1>
 
         <p>
             Tu aplicación Flask está funcionando correctamente.
